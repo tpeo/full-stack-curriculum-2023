@@ -2,7 +2,7 @@
 
 # Materials
 - [Day 1: Setup and Git](https://docs.google.com/presentation/d/1o6kA5eutIyf49a5sPPaBtZgB0kbs22F2/edit?usp=sharing&ouid=117392730020260659840&rtpof=true&sd=true)
-- [Day 2: HTML](https://docs.google.com/presentation/d/14JpYhViAUWqg9GKq1PDHTRyT-Na32Dp6/edit?usp=sharing&ouid=113681470195127276939&rtpof=true&sd=true)
+- [Day 2: HTML](https://docs.google.com/presentation/d/1ebxSS3bR3qJsUOWNYyRfAFnB8-5KHEWf/edit?usp=sharing&ouid=113015579840327057343&rtpof=true&sd=true)
 
 # Homework # 1: HTML Resume
 It's recruiting season which means that you'll need a resume to show the world your skills and experiences. The goal of this homework assignmnet is to familiarize you with HTML, so play around with different tags and formats. Don't worry about making the resume pretty, we'll do that next week when we learn CSS :)
