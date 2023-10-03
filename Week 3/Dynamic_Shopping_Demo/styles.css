@@ -58,6 +58,10 @@ li {
     align-items: center;
 }
 
+li span {
+    flex: 1;
+}
+
 li button {
     font-size: 14px;
     color: #ff5858;
