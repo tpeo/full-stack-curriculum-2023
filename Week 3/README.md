@@ -4,8 +4,8 @@ Last week, we went over common Javascript quirks. This week, we'll see how Javas
 
 # Materials
 
-- [Day 5: Javascript in the Browser](https://docs.google.com/presentation/d/1AWqvb-pY2m7jT-Z4oYHFn2Ckt8qBZy2nNCIYe-7npWw/edit?usp=sharing)
-- [Day 6: APIs](https://docs.google.com/presentation/d/1FH-wWEU4IZOVxS99H6pvQVYklW5vzr96/edit?usp=sharing&ouid=113681470195127276939&rtpof=true&sd=true)
+- [Day 5: Javascript in the Browser]([https://docs.google.com/presentation/d/1AWqvb-pY2m7jT-Z4oYHFn2Ckt8qBZy2nNCIYe-7npWw/edit?usp=sharing](https://docs.google.com/presentation/d/1n5f8ONJQ5FodRcK9dTs09oEFJIkLdPXk/edit?usp=sharing&ouid=117392730020260659840&rtpof=true&sd=true))
+- [Day 6: APIs]([https://docs.google.com/presentation/d/1FH-wWEU4IZOVxS99H6pvQVYklW5vzr96/edit?usp=sharing&ouid=113681470195127276939&rtpof=true&sd=true](https://docs.google.com/presentation/d/1wU5rm_7GkRq6HoO3oND2gHChrsA-weYe/edit?usp=sharing&ouid=117392730020260659840&rtpof=true&sd=true))
 - [Postman : we will use this to call APIs, please download before you come to class Wednesday](https://www.postman.com/)
 
 # Demo
