@@ -43,10 +43,6 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #45a049;
-}
-
 ul {
     list-style-type: none;
     padding: 0;
@@ -60,6 +56,10 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+li span {
+    flex: 1;
 }
 
 li button {
