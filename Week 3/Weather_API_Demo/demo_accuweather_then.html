@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Weather APIs</title>
+	<meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id='main-container'>
+		<h4 id='lat'></h4>
+		<h4 id='lon'></h4>
+		<h4 id='temp'></h4>
+		<button id='getTemp' onclick="getData()">Get Temp Jaco CR</button>
+	</div>
+</body>
+
+<script>
+		const apiKey = "ef1f35837935c10aaff7672f865d5fd6";
+
+		let temp;
+		let lat;
+		let lon;
+
+		function getData() {
+			let apiCall = `http://api.openweathermap.org/geo/1.0/direct?appid=${apiKey}&q=Jaco,CR&limit=5`;
+				// calls the API
+				fetch(apiCall)
+					.then((response) => 
+						// after recieving a response, take the response from the server and convert it to JSON 
+						response.json()
+					)
+					.then((data) => {
+						console.log(data);
+						lat = data[0].lat;
+						lon = data[0].lon;
+						renderLatLon();
+						//what would happen if this wasn't in the .then?
+						getTemp();
+					});
+		}
+
+		function renderLatLon() {
+			document.querySelector('#lat').innerText = 'Lat: ' + lat;
+			document.querySelector('#lon').innerText = 'Lon: ' + lon;
+		}
+
+		function getTemp() {
+			let apiCall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
+
+				// calls the API
+				fetch(apiCall)
+					.then((response) => 
+						// after recieving a response, take the response from the server and convert it to JSON 
+						response.json()
+					)
+					.then((data) => {
+						console.log(data);
+						temp = data.main.temp;
+						renderTemp();
+					});
+		}
+
+        
+		function renderTemp() {
+			document.querySelector('#temp').innerText = 'Temp: ' + temp;
+		}
+	</script>
+</html>
