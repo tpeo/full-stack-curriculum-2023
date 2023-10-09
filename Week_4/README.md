@@ -4,7 +4,7 @@ This week, we continue our progress in frontend web development with React. Reac
 
 # Materials
 
-- [Day 7: Introduction to React]
+- [Day 7: Introduction to React](https://docs.google.com/presentation/d/1L00AVg-qgg1XxKvNFgEAwmA8G0vs4L5s/edit?usp=sharing&rtpof=true&sd=true)
 - [Day 8: React Continued](https://docs.google.com/presentation/d/1f-Rjrflvc6K1YBWtOYQy17T8NmAg4Dca/edit?usp=sharing&ouid=100708582121827169460&rtpof=true&sd=true)
 - [React Textbook: useful to reference and lots of great examples to go over](https://drive.google.com/file/d/1TZXswwWQ4MU9oy2J5tBkWU-TNfmhplqY/view?usp=sharing)
 
