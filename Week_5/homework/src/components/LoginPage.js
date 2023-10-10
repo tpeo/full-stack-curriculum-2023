@@ -1,28 +1,51 @@
-import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
-import { useAuth } from '../contexts/AuthContext';
-import { useTheme } from '@mui/material/styles';
+import React, { useState } from "react";
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Alert,
+} from "@mui/material";
+import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "@mui/material/styles";
 
 function LoginPage() {
+  // Access the MUI theme for potential theme-related functionalities.
   const theme = useTheme();
-  const { login, loginError } = useAuth();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
+  // Extract login function and error from our authentication context.
+  const { login, loginError } = useAuth();
+
+  // State to hold the username and password entered by the user.
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Handle login function.
   const handleLogin = () => {
     login(username, password);
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box 
+      <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
+        <Box
+          component="img"
+          sx={{
+            marginBottom: 2,
+            height: 200,
+            width: 200, 
+          }}
+          alt="UT Longhorn"
+          src="/longhorn.jpg"
+        ></Box>
         <Typography component="h1" variant="h4" fontWeight="bold">
           Login
         </Typography>
@@ -35,10 +58,10 @@ function LoginPage() {
             id="username"
             label="Username"
             InputLabelProps={{ shrink: true }}
-            placeholder='admin'
+            placeholder="admin"
             autoFocus
             value={username}
-            onChange={e => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -49,9 +72,9 @@ function LoginPage() {
             type="password"
             id="password"
             InputLabelProps={{ shrink: true }}
-            placeholder='racecar'
+            placeholder="racecar"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Button
             type="submit"
@@ -64,11 +87,14 @@ function LoginPage() {
             Login
           </Button>
         </Box>
-        {loginError && <Alert severity="error" sx={{ mt: 2 }}>{loginError}</Alert>}
+        {loginError && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {loginError}
+          </Alert>
+        )}
       </Box>
     </Container>
   );
 }
 
 export default LoginPage;
-

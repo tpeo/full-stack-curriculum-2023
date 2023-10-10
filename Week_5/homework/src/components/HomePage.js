@@ -14,7 +14,10 @@ import {
 import Header from "./Header";
 
 export default function HomePage() {
+
+  // State to hold the list of tasks.
   const [tasks, setTasks] = useState([
+    // Sample tasks to start with.
     { name: "create a todo app", finished: false },
     { name: "wear a mask", finished: false },
     { name: "play roblox", finished: false },
@@ -22,9 +25,12 @@ export default function HomePage() {
     { name: "become a tech bro", finished: true },
   ]);
 
+  // State for the task name being entered by the user.
   const [taskName, setTaskName] = useState("");
 
+  // Function to add a new task to the list.
   function addTask() {
+    // Check if task name is provided and if it doesn't already exist.
     if (taskName && !tasks.some((task) => task.name === taskName)) {
       setTasks([...tasks, { name: taskName, finished: false }]);
       setTaskName("");
@@ -33,6 +39,7 @@ export default function HomePage() {
     }
   }
 
+  // Function to toggle the 'finished' status of a task.
   function updateTask(name) {
     setTasks(
       tasks.map((task) =>
@@ -41,6 +48,7 @@ export default function HomePage() {
     );
   }
 
+  // Function to compute a message indicating how many tasks are unfinished.
   function getSummary() {
     const unfinishedTasks = tasks.filter((task) => !task.finished).length;
     return unfinishedTasks === 1
@@ -52,6 +60,7 @@ export default function HomePage() {
     <>
       <Header />
       <Container component="main" maxWidth="sm">
+        {/* Main layout and styling for the ToDo app. */}
         <Box
           sx={{
             marginTop: 8,
@@ -60,6 +69,7 @@ export default function HomePage() {
             alignItems: "center",
           }}
         >
+          {/* Display the unfinished task summary */}
           <Typography variant="h4" component="div" fontWeight="bold">
             {getSummary()}
           </Typography>
@@ -73,6 +83,7 @@ export default function HomePage() {
               justifyContent: "center",
             }}
           >
+            {/* Input and button to add a new task */}
             <Grid
               container
               spacing={2}
@@ -100,6 +111,7 @@ export default function HomePage() {
                 </Button>
               </Grid>
             </Grid>
+            {/* List of tasks */}
             <List sx={{ marginTop: 3 }}>
               {tasks.map((task) => (
                 <ListItem
