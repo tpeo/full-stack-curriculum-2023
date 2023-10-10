@@ -20,27 +20,6 @@ Backend API URL: https://tpeo-todo.herokuapp.com/
 
 **API Documentation**:
 
-POST: /auth/register <- Creates a new user
-
-- Request
-  - email: string
-  - password: string
-  - username: string
-- Response
-  - username: string
-  - token: string <- Authentication Token
-
-POST: /auth/login <- Logs in a user
-
-- Request -- JSON
-  - email: string
-  - password: string
-- Response -- JSON
-  - username: string
-  - token: string <- Authentication Token
-
-Note: all requests from here on down must be authenticated: append the token in the header upon subsequent requests, instructions can be found [here](https://reqbin.com/code/javascript/ricgaie0/javascript-fetch-api-example#:~:text=Sending%20HTTP%20Headers%20with%20Fetch%20API%20Request)
-
 GET: /todo <- Gets the TODO list for a user
 
 - Request -- GET requests dont have payload
@@ -61,7 +40,7 @@ POST: /todo <- creates a TODO item for a user
   - msg: string <- should be sucess
   - uid: string <-id of created todo item
 
-DELTE: /todo/<id> <- deletes a todo from a user's list if it exists
+DELETE: /todo/<id> <- deletes a todo from a user's list if it exists
 
 - Request
     - uid: string <- the id of the todo you want to remove
@@ -70,8 +49,6 @@ DELTE: /todo/<id> <- deletes a todo from a user's list if it exists
 
 ## Instructions
 
-1. Augment the login by supporting persistent users via authentication: Call our login api and save the authentication token to localstorage.
-2. Upon subsequent requests, you will pass your authentication token to the server upon every request by adding a Bearer Token.
-3. Support retrieving your todo list
-4. Support adding todo items to your todo list
-5. Support removing/checking off todo items to your todo list
+1. Support retrieving your todo list
+2. Support adding todo items to your todo list
+3. Support removing/checking off todo items to your todo list
