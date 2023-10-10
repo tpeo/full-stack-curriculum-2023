@@ -28,10 +28,18 @@ export default function HomePage() {
   // State for the task name being entered by the user.
   const [taskName, setTaskName] = useState("");
 
-  // Function to add a new task to the list.
+  // TODO: Support retrieving your todo list from the API.
+  // Currently, the tasks are hardcoded. You'll need to make an API call
+  // to fetch the list of tasks instead of using the hardcoded data.
+
   function addTask() {
     // Check if task name is provided and if it doesn't already exist.
     if (taskName && !tasks.some((task) => task.name === taskName)) {
+
+      // TODO: Support adding todo items to your todo list through the API.
+      // In addition to updating the state directly, you should send a request
+      // to the API to add a new task and then update the state based on the response.
+
       setTasks([...tasks, { name: taskName, finished: false }]);
       setTaskName("");
     } else if (tasks.some((task) => task.name === taskName)) {
@@ -46,6 +54,10 @@ export default function HomePage() {
         task.name === name ? { ...task, finished: !task.finished } : task
       )
     );
+
+    // TODO: Support removing/checking off todo items in your todo list through the API.
+    // Similar to adding tasks, when checking off a task, you should send a request
+    // to the API to update the task's status and then update the state based on the response.
   }
 
   // Function to compute a message indicating how many tasks are unfinished.
