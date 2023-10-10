@@ -16,39 +16,26 @@ We will go over how to structure a React application, along with how to use the 
 
 For this week's homework, y'all will be building on top of the Demo Todo application by integrating it with a sample backend that we have created. We've included the code for the backend, and you do not need to know the ins and outs, just how to use it. The following is documentation of the API that we've created, along with the endpoints.
 
-Backend API URL: https://tpeo-todo.herokuapp.com/
+Backend API URL: https://tpeo-todo.vercel.app/
 
 **API Documentation**:
 
-GET: /todo <- Gets the TODO list for a user
+You can access the FULL documentation at: https://tpeo-todo.vercel.app/api-docs/
 
-- Request -- GET requests dont have payload
-- Response -- JSON
-  - username: string
-  - todos: [Objects] <- each object will look like the following
-    - todo: string
-    - id: id of the todo
-    - email: email of user who created the todo
+There are 4 endpoints given to you, and you can experiment with the API itself by
+trying certain endpoints out. For example, the GET endpoint for all tasks can be 
+called at /tasks, or the full URL, https://tpeo-todo.vercel.app/tasks.
 
-POST: /todo <- creates a TODO item for a user
-
-- Request -- JSON
-
-  - todo: string
-
-- Response -- JSON
-  - msg: string <- should be sucess
-  - uid: string <-id of created todo item
-
-DELETE: /todo/<id> <- deletes a todo from a user's list if it exists
-
-- Request
-    - uid: string <- the id of the todo you want to remove
-- Response -- JSON
-  - msg: string <- should be success
+The documentation provides the full guidelines on what is passed in the request,
+and what is given back in the response. 
 
 ## Instructions
 
 1. Support retrieving your todo list
 2. Support adding todo items to your todo list
 3. Support removing/checking off todo items to your todo list
+
+HINTS: When retrieving the todo list (hopefully with your own name), make sure to
+keep the IDs of each task as well! This ID is how you will delete specific tasks
+through the DELETE endpoint. When you POST a new task, the response returns an ID!
+You should take this ID and add it to any object you've created.
