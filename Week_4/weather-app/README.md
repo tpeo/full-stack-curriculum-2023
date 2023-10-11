@@ -41,8 +41,7 @@ Hints:
 In the `App.js` component, the next step is to manage the data flow between `MainContainer.js` and `SideContainer.js`. When a city is selected in `SideContainer.js`, update the city data in the state of `App.js`. Store the fetched weather data in the state of `App.js`.
 
 Hints:
-- Use the `useState` hook to manage the city data and the weather data.
-- Pass the functions to update city data as props to `MainContainer.js` and `SideContainer.js`.
+- Pass functions to update city data as props to `MainContainer.js` and `SideContainer.js`.
 
 ## Step 3: Rendering Data in MainContainer.js
 In the `MainContainer.js` component, the final step is to render the weather data obtained from the API call. Use the city data (obtained from App.js as a prop) to make an API call to fetch weather data for that location. Display the current weather information along with a weather forecast for the next five days.
