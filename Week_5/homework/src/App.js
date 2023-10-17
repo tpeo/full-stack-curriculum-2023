@@ -15,22 +15,21 @@ function App() {
     <Router>
       {/* CssBaseline is a component from MUI. It helps in providing consistent baseline styling across different browsers. */}
       <CssBaseline/>
-      {/* AuthProvider is a custom context component that provides authentication functionalities to its children. */}
-      <AuthProvider>
+      {/* TODO: AuthProvider is a custom context component that provides authentication functionalities to its children. */}
+      
         {/* ThemeProvider from MUI provides theming capabilities. We pass our custom theme to it. */}
         <ThemeProvider theme={theme}>
           {/* Routes is a component from react-router-dom that wraps all possible routes or pages */}
           <Routes>
             {/* Route represents a single route. Here, we define two routes: one for login and one for home. */}
             {/* The path prop determines the URL path, and the element prop determines which component to show. */}
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
         </ThemeProvider>
-      </AuthProvider>
+      
     </Router>
   );
 }
 
-// Export the App component so it can be used elsewhere in our project
 export default App;
