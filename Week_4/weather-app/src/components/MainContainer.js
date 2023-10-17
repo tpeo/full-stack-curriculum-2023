@@ -11,7 +11,7 @@ function MainContainer(props) {
     output += " " + date.getDate();
     return output;
   }
-  
+
   /*
   STEP 1: IMPORTANT NOTICE!
 
@@ -64,4 +64,6 @@ function MainContainer(props) {
   );
 }
 
+
 export default MainContainer;
+
