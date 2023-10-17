@@ -4,13 +4,10 @@ We are going to finish off the frontend section of our course by exploring how t
 
 # Materials
 
-[Day 9 + 10: Modern React and Using UI Libraries](https://docs.google.com/presentation/d/12pDClMCPLL9ACW6-LJJjns93Hb8JeUYaWaelsSbQcFY/edit#slide=id.gfdad69bcc6_1_64)
+[Day 9: Modern React and Using UI Libraries](https://docs.google.com/presentation/d/1fNy5c4Ifoodhr5EUBneSnhK8zneYxMPU/edit?usp=sharing&ouid=100708582121827169460&rtpof=true&sd=true)
 
-[React Todo List with Login Demo](https://codesandbox.io/s/to-do-mantine-complete-forked-bz9lx3?file=/src/App.js)
+[Day 10: Virtual Dom + Demo Day](https://docs.google.com/presentation/d/182TEMg6a03rtG34_yxJgPaGhUzbNXpm4/edit?usp=sharing&ouid=100708582121827169460&rtpof=true&sd=true)
 
-# Demo
-
-We will go over how to structure a React application, along with how to use the useContext how to create a login application and remember usernames. We will be building out the entire functionality in React and style our components using Mantine.
 
 # Homework
 
