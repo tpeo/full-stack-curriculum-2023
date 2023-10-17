@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Demo Form</title>
+</head>
+<body>
+    <h1>Create Your Account</h1>
+    <hr></hr>
+    
+    <!-- Input for the name -->
+    <div>
+        <span>Name: </span>
+        <input></input>
+    </div>
+    <br></br>
+    <!-- Input for the username -->
+    <div>
+        <span>Username: </span>
+        <input></input>
+    </div>
+    <br></br>
+    <!-- Input for the password -->
+    <div>
+        <span>Password: </span>
+        <input></input>
+    </div>
+    <br></br>
+    <!-- In order for only one item to be selected, they must all have the same name -->
+    <div>
+        <span>Gender: </span>
+        <input type="radio" name="gender" value="male" id="male">
+        <label for="male">Male</label>
+        
+        <input type="radio" name="gender" value="female" id="female">
+        <label for="female">Female</label>
+        
+        <input type="radio" name="gender" value="other" id="other">
+        <label for="other">Other</label>
+    </div>
+    <br></br>
+
+    <div>
+        <span>Gender: </span>
+    <input type="radio" value="male">
+        <label for="male">Male</label>
+    </input>
+    <input type="radio" value="female">
+        <label for="female">Female</label>
+    </input>
+    <input type="radio" value="other">
+        <label for="other">Other</label>
+    </input>
+    </div>
+    <br></br>
+
+    <div>
+        <span>Birthday: </span>
+        <input type="date" value="male"></input>
+    </div>
+    <br></br>
+    <div>
+        <label for="year">Year:</label>
+        <select id="year" name="year">
+            <option value="freshman">Freshman</option>
+            <option value="sophomore">Sophomore</option>
+            <option value="junior">Junior</option>
+            <option value="senior">Senior</option>
+        </select>
+    </div>
+    <br></br>
+
+    <div>
+        <label for="year">Select your year:</label>
+        <select id="year" name="year">
+            <option value="freshman">Freshman</option>
+            <option value="sophomore">Sophomore</option>
+            <option value="junior">Junior</option>
+            <option value="senior">Senior</option>
+        </select>
+    </div>
+    <br></br>
+    <div>
+        <label for="colorPicker">Color:</label>
+        <input type="color" name="color">
+    </div>
+    <br></br>
+    <div>
+        <label>Comments: </label>
+        <input type="text">
+    </div>
+    <br></br>
+    <button>Submit</button>
+    
+</body>
+</html>
