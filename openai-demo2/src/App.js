@@ -5,14 +5,19 @@ import {
   Divider,
   TextField,
   Fab,
+  Alert
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
 import MessageComponent from "./MessageComponent";
 
 export default function App() {
+  const API_KEY = ""
 
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
   const systemMessage = {
     //  Explain things like you're talking to a software professional with 5 years of experience.
     role: "system",
@@ -49,6 +54,7 @@ export default function App() {
     // Format messages for chatGPT API
     // API is expecting objects in format of { role: "user" or "assistant", "content": "message here"}
     // So we need to reformat
+    setLoading(true)
 
     let apiMessages = chatMessages.map((messageObject) => {
       let role = "";
@@ -72,16 +78,17 @@ export default function App() {
       ],
     };
 
-    await fetch("https://api.openai.com/v1/chat/completions", {
+    try {
+      await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization:
-          "Bearer /* api key */",
+        "Authorization": "Bearer " + API_KEY,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(apiRequestBody),
     })
       .then((data) => {
+        console.log(data)
         return data.json();
       })
       .then((data) => {
@@ -92,8 +99,16 @@ export default function App() {
             sender: "ChatGPT",
           },
         ]);
-        // setIsTyping(false);
+        setLoading(false);
       });
+    } catch (error) {
+      // TypeError: Failed to fetch
+      console.log('There was an error', error);
+      setError(error)
+      setLoading(false)
+    }
+
+    
   }
 
   return (
@@ -113,18 +128,21 @@ export default function App() {
         <Divider />
         <Grid container style={{ padding: "20px" }}>
           <Grid item xs={11}>
-            <TextField
+            {!loading && <TextField
               id="outlined-basic-email"
               label="Type Something"
               onChange={(e) => setInput(e.target.value)}
               value={input}
               fullWidth
-            />
+            />}
           </Grid>
           <Grid item xs={1} align="right">
             <Fab color="primary" aria-label="add">
               <SendIcon onClick={() => handleSend()}/>
             </Fab>
+          </Grid>
+          <Grid item xs={11}>
+          {error && (<Alert severity="error">Error: {error.message}</Alert>)}
           </Grid>
         </Grid>
       </Grid>
