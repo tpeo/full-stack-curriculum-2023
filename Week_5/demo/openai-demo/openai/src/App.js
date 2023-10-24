@@ -89,34 +89,47 @@ function App() {
   }
 }
 
-
   return (
     <Grid item xs={9}>
-      <List>
-        {messages.map((element, index) => {
-          return <MessageComponent number={index} message={element.message} responder={element.sender}/>
-        })}
-      </List>
-      <Divider/>
-      <Grid container style={{padding: "20px"}}>
-        <Grid item xs={11}>
-          <TextField id="outlined-basic-email" label="Type Something" onChange={(e) => setInput(e.target.value)} value={input} fullWidth/>
-        </Grid>
-        <Grid item xs={12} align="right">
-          <Fab color="primary" ari-label="add">
-            {loading ? (
-              <CircularProgress color = "inherit"/>
-            ) : (
-              <SendIcon color="inherit" onClick = {handleSend}/>
-            )}
-          </Fab>
-        </Grid>
+        <List>
+          {
+            messages.map((message, index) => {
+              return (
+                <MessageComponent
+                  number={index}
+                  message={message.message}
+                  responder={message.sender}
+              />)
+            })
+          }
+        </List>
+        <Divider />
+        <Grid container style={{ padding: "20px" }}>
+          <Grid item xs={11}>
+             <TextField
+              id="outlined-basic-email"
+              label="Type Something"
+              onChange={(e) => setInput(e.target.value)}
+              value={input}
+              fullWidth
+            />
+          </Grid>
 
-      <Grid item xs= {11}>
-        {error && (<Alert severity="error">Error: {error.message}</Alert>)}
+          <Grid item xs={1} align="right">
+            <Fab color="primary" aria-label="add">
+              {loading ? (
+                <CircularProgress color="inherit"/>
+              ) : (
+                <SendIcon onClick={handleSend} />
+              )}
+            </Fab>
+          </Grid>
+
+          <Grid item xs={11}>
+          {error && (<Alert severity="error">Error: {error.message}</Alert>)}
+          </Grid>
+        </Grid>
       </Grid>
-      </Grid>
-    </Grid>
   );
 }
 
