@@ -10,6 +10,7 @@ const express = require('express');
 const app = express();
 
 // for env variables
+// run npm install dotenv for dependency
 require('dotenv').config()
 
 // to parse JSON in req, res
