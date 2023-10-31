@@ -1,17 +1,18 @@
-// npm i pbkdf2
 const { randomInt } = require('crypto');
 // require express returns a function
 const express = require('express');
-// for hashing
-var pbkdf2 = require('pbkdf2')
+
 // returns an object
 const app = express();
-
 const db = require('./firebase')
 
+// for hashing
+var pbkdf2 = require('pbkdf2')
+// JWT 
 const jwt = require('jsonwebtoken');
-
+// store in env, ok here for demo
 ACCESS_TOKEN_SECRET = "abc123"
+const SALT = ";asf;klsadfllsfjalskdfjl";
 
 // for env variables
 // run npm install dotenv for dependency
@@ -19,8 +20,6 @@ require('dotenv').config()
 
 // to parse JSON in req, res
 app.use(express.json())
-
-const SALT = ";asf;klsadfllsfjalskdfjl";
 
 // Middleware to validate tweet length
 const validateTweetLength = (req, res, next) => {
@@ -43,7 +42,7 @@ const validateTweetLength = (req, res, next) => {
     }
   };
 
-  // Auth Middleware for non expiring tokens
+  // Auth Middleware for non expiring tokens (check validity of token sent in)
 function authMiddleware(req, res, next) {
   // Check if proper header exists
   if (req.headers["authorization"]) {
@@ -53,8 +52,9 @@ function authMiddleware(req, res, next) {
     if (headers.length === 2 && headers[0] === "Bearer") {
       let token = headers[1];
       try {
+        // verify the token
         let decodedToken = jwt.verify(token, ACCESS_TOKEN_SECRET);
-        // Set user object which can be accessed in the req
+        // Set user object which can be accessed in the req in future
         req.user = decodedToken.username;
         next(); // Go to next function
       } catch (e) {
@@ -124,7 +124,9 @@ app.delete('/api/tweets', async (req, res) => {
       }
 })
 
-// Hash a password using PBKDF2
+// NEW
+
+// Hash a password function using PBKDF2
 const hashPassword = (password) => {
   const key = pbkdf2.pbkdf2Sync(password, SALT, 1000, 64, 'sha512');
   return key.toString('hex');
@@ -134,28 +136,30 @@ const hashPassword = (password) => {
 app.post("/register", async (req, res) => {
   // Get the username and password from request
   const { username, password } = req.body;
-  // hash the password
+  // hash the password - this is what we want to store in db
   const passHashed = hashPassword(password)
   // Check for duplicate users
   const check = await db.collection("users").doc(username).get();
   if (check.exists) {
     return res.status(400).json({ msg: "User exists" });
   }
+  // create new user
   const user = {
     username: username,
     password: passHashed
   }
 console.log(user)
+// add new user to DB
   const usersRef = db.collection('users');
   await usersRef.doc(username).set(user);
-
+// create new access token
+// set expiry to 30s so you can show them how it expires when call route
   const accessToken = jwt.sign(
     { "username": username },
     ACCESS_TOKEN_SECRET,
     { expiresIn: '30s' }
   );  
-
-  // Send JWT Token
+  // Send JWT Token back
   res.json({
     msg: "successfully created",
     data: { username: username },
@@ -163,7 +167,7 @@ console.log(user)
   });
 });
 
-// Verifies password
+// Verifies password + creates token
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const passHashed = hashPassword(password);
@@ -177,6 +181,7 @@ app.post("/login", async (req, res) => {
   const user = check.data();
   let samePassword = passHashed === user.password;
   if (samePassword) {
+    // user logged in correctly
     const accessToken = jwt.sign(
       { "username": username },
       ACCESS_TOKEN_SECRET,
@@ -192,7 +197,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Example of a protected route
+// Example of a protected route - run so they can see
 app.get("/protected", authMiddleware, (req, res) => {
   res.send("User " + req.user + " was authenticated");
 });
