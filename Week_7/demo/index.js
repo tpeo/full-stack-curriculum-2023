@@ -33,7 +33,7 @@ const validateTweetLength = (req, res, next) => {
 
   // Middleware to validate input of post request
   const validateInput = (req, res, next) => {
-    const user = req.body.user;
+    const user = req.user;
     const tweet = req.body.tweet;
     if (!tweet || !user) {
         res.status(400).json({ error: 'Incomplete input' });
@@ -74,16 +74,16 @@ app.get('/', (req, res) => {
 })
 
 // get all tweets
-app.get('/api/tweets', async (req, res) => {
+app.get('/api/tweets', authMiddleware, async (req, res) => {
     const doc = await db.collection("tweets").doc("tweets").get();
     res.send(doc.data().tweets)
 })
 
 // get tweets by user (param in route)
-app.get('/api/tweets/:user', async (req, res) => {
+app.get('/api/tweets/:user', authMiddleware, async (req, res) => {
     const doc = await db.collection("tweets").doc("tweets").get();
     const tweets = doc.data().tweets;
-    var target = tweets.find(t => t.user === req.params.user)
+    var target = tweets.find(t => t.user === req.user)
     if (!target) {
         res.status(404).send("Tweet not found")
     } else {
@@ -92,10 +92,10 @@ app.get('/api/tweets/:user', async (req, res) => {
 })
 
 // post a tweet
-app.post('/api/tweets', validateInput, validateTweetLength, async (req, res) => {
+app.post('/api/tweets', authMiddleware, validateInput, validateTweetLength, async (req, res) => {
     var tweet = {
-        id: randomInt(200),
-        user: req.body.user,
+        id: randomInt(1000),
+        user: req.user,
         tweet: req.body.tweet
     }
     const tweetsRef = db.collection("tweets").doc("tweets");
@@ -107,7 +107,7 @@ app.post('/api/tweets', validateInput, validateTweetLength, async (req, res) => 
 })
 
 // delete a tweet
-app.delete('/api/tweets', async (req, res) => {
+app.delete('/api/tweets', authMiddleware, async (req, res) => {
     const tweetsRef = db.collection("tweets").doc("tweets");
     const snapshot = await tweetsRef.get();
     const currTweets = snapshot.data().tweets;
@@ -125,7 +125,6 @@ app.delete('/api/tweets', async (req, res) => {
 })
 
 // NEW
-
 // Hash a password function using PBKDF2
 const hashPassword = (password) => {
   const key = pbkdf2.pbkdf2Sync(password, SALT, 1000, 64, 'sha512');
