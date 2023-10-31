@@ -12,6 +12,7 @@ Writing login & register routes with a JWT token. Stores user credentials on fir
 - Write the login endpoint
 - Write the authMiddleware function
 - Write the example protected route
+- Update the post request (no longer need to pass in username + validateIput middleware updated)
 - Show them how the token work/expire in Postman
     - Call the register to add a user
     - Login as that user
