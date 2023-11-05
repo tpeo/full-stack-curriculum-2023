@@ -76,7 +76,7 @@ export default function App() {
       method: "POST",
       headers: {
         Authorization:
-          "Bearer /* api key */",
+          "Bearer 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",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(apiRequestBody),

@@ -1,4 +1,4 @@
-import { Avatar, Button, Typography } from "@mui/material";
+import { Avatar, Button, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, firebase } from "../firebase";
@@ -51,12 +51,13 @@ export default function LoginPage() {
   }
 
   return (
-    <>
-      <Typography variant="h1">Login</Typography>
-      <Button onClick={googleLogin} sx={{ p: 0 }}>
-        <Avatar src="google_icon.png"></Avatar>
-        <Typography>Login with Google</Typography>
-      </Button>
-    </>
+    <Stack margin="100px" alignItems="center" justifyContent="center" spacing={4}>
+        <Avatar src="TPEO_Logo.png"></Avatar>
+        <Typography variant="h1">Login</Typography>
+        <Button variant="contained" onClick={googleLogin} sx={{ p: 0, padding: "10px" }}>
+            <Avatar src="google_icon.png" sx={{marginRight: '5px'}}></Avatar>
+            <Typography>Login with Google</Typography>
+        </Button>
+    </Stack>
   );
 }

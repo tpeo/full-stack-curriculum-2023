@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Stack } from "@mui/material";
 import {verifyCredentials} from '../verifyCredentials';
 import { Avatar, Grid, Typography, Button } from "@mui/material";
 
@@ -57,23 +58,20 @@ function App() {
   function renderPage() {
     if (loaded) {
       return (
-        <Grid>
-          <Grid>
-            <Avatar src={window.localStorage.getItem("@pfp")}>
+        <Stack margin="100px" alignItems="center" justifyContent="center" spacing={4}>
+            <Avatar   sx={{ width: 200, height: 200 }} src={window.localStorage.getItem("@pfp")}>
               <img
                 src={window.localStorage.getItem("@pfp")}
                 referrerPolicy="no-referrer"
               ></img>
-            </Avatar>
-          </Grid>
-          <Grid item>
+            </Avatar>        
             <Typography id="name">{user.name}</Typography>
             <Typography id="email">{user.email}</Typography>
             <Typography id="apartment">{user.apartment}</Typography>
-          </Grid>
+            <Button variant='contained' onClick={logOut}>Log Out</Button>
 
-          <Button onClick={logOut}>Log Out</Button>
-        </Grid>
+      </Stack>
+  
       );
     } else {
       return null;
