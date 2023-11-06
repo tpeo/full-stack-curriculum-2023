@@ -32,7 +32,9 @@ export default function LoginPage() {
             pfp: user.pfp
           })
           //6 - navigate user to the home page
-          navSignIn();
+          await verifyCredentials(navigate, true);
+          navigate("/");
+
         }
       },
       function (error) {
@@ -40,14 +42,6 @@ export default function LoginPage() {
       }
     );
 
-    function navSignIn() {
-      // const fetchData = async () => {
-      //   await verifyCredentials(navigate, true);
-      // };
-
-      // fetchData();
-      navigate("/");
-    }
   }
 
   return (

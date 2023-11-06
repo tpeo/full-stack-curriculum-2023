@@ -1,10 +1,6 @@
-import { useContext, createContext, useEffect, useState } from 'react';
+import { useContext, createContext, useState, useEffect } from 'react';
 import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithRedirect,
   signOut,
-  onAuthStateChanged,
 } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
@@ -21,12 +17,6 @@ export const AuthContextProvider = ({ children }) => {
   });
   const navigate = useNavigate();
 
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider();
-    // signInWithPopup(auth, provider);
-    signInWithRedirect(auth, provider)
-  };
-
   const logOut = () => {
       signOut(auth)
       navigate("/login"); //navigate to temp page that says you've logged out and times out?
@@ -34,9 +24,7 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   async function getUser() {
-    let apiCall = `http://${process.env.REACT_APP_HOSTNAME}/info/${
-      JSON.parse(window.localStorage.getItem("@user")).uid
-    }`;
+    let apiCall = `http://${process.env.REACT_APP_HOSTNAME}/info/${user.user.uid}`;
 
     await fetch(apiCall, {
       method: "GET",
@@ -58,19 +46,6 @@ export const AuthContextProvider = ({ children }) => {
       });
   }
 
-//   useEffect(() => {
-//     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-//         getUser();
-//       setUser(currentUser);
-//       console.log('User', currentUser)
-//     });
-//     return () => {
-//         if (user.loggedIn) {
-//             unsubscribe();
-//         }
-//     };
-//   }, []);
-
   const verifyCredentials = async (navigate) => {
     // console.log(user)
     if(user.userToken){
@@ -78,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
 
         const decode = jwtDecode(user.userToken);
 
-        const user = await fetch(`http://${process.env.REACT_APP_HOSTNAME}/user`, {
+        const res = await fetch(`http://${process.env.REACT_APP_HOSTNAME}/user`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -87,7 +62,7 @@ export const AuthContextProvider = ({ children }) => {
             body: JSON.stringify({ user: decode }),
         });
 
-        const result = (await user.json());
+        const result = (await res.json());
         console.log(result)
         return result.newUser;
     }else{
@@ -97,7 +72,7 @@ export const AuthContextProvider = ({ children }) => {
 }
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user, setUser, verifyCredentials }}>
+    <AuthContext.Provider value={{ logOut, user, setUser, verifyCredentials }}>
       {children}
     </AuthContext.Provider>
   );
