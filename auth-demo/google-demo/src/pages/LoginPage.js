@@ -2,11 +2,11 @@ import { Avatar, Button, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, firebase } from "../firebase";
-import { verifyCredentials } from "../verifyCredentials";
+import { UserAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
   let navigate = useNavigate();
-  const [newUser, setNewUser] = useState(false);
+  const { setUser, verifyCredentials } = UserAuth();
 
   async function googleLogin() {
     //1 - init Google Auth Provider
@@ -24,14 +24,15 @@ export default function LoginPage() {
         };
         //4 - check if have token in the current user
         if (token) {
-          //5 - put the token at localStorage (We'll use this to make requests)
-          localStorage.setItem("@userToken", token);
-          localStorage.setItem("loggedIn", true);
-          localStorage.setItem("@user", JSON.stringify(user));
-          localStorage.setItem("@pfp", user.pfp);
+          //5 - put the token at context (We'll use this to make requests)
+          setUser({
+            userToken: token,
+            loggedIn: true,
+            user: user,
+            pfp: user.pfp
+          })
           //6 - navigate user to the home page
           navSignIn();
-          console.log(newUser);
         }
       },
       function (error) {
@@ -40,12 +41,11 @@ export default function LoginPage() {
     );
 
     function navSignIn() {
-      const fetchData = async () => {
-        setNewUser(await verifyCredentials(navigate, true));
-      };
-      console.log(newUser);
+      // const fetchData = async () => {
+      //   await verifyCredentials(navigate, true);
+      // };
 
-      fetchData();
+      // fetchData();
       navigate("/");
     }
   }

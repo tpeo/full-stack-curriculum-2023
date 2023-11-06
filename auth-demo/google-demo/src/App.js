@@ -4,11 +4,12 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage';
 import { Routes, Route, useParams } from "react-router-dom";
 import { Typography } from '@mui/material';
+import { UserAuth } from './context/AuthContext';
 
 const ProtectedFormRoute = ({isLoggedIn, children}) => {
   const params = useParams();
   const name = params.apartment;
-  if (isLoggedIn == "true") {
+  if (isLoggedIn) {
     console.log(params)
     return children;
   } else {
@@ -19,13 +20,16 @@ const ProtectedFormRoute = ({isLoggedIn, children}) => {
 }
 
 function App() {
+  const { user } = UserAuth();
+  console.log(user.loggedIn)
     return (
-      <Routes>
-        <Route path="/login" element={<LoginPage></LoginPage>}></Route>
-        <Route path="/" element={<ProtectedFormRoute isLoggedIn={window.localStorage.getItem("loggedIn")}>
-            <HomePage></HomePage>
-          </ProtectedFormRoute>}></Route>
-    </Routes>
+        <Routes>
+          <Route path="/login" element={<LoginPage></LoginPage>}></Route>
+          <Route path="/" element={<ProtectedFormRoute isLoggedIn={user.loggedIn}>
+              <HomePage></HomePage>
+            </ProtectedFormRoute>}></Route>
+      </Routes>
+
     );
 }
 export default App;

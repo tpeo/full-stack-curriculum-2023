@@ -1,81 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Stack } from "@mui/material";
-import {verifyCredentials} from '../verifyCredentials';
 import { Avatar, Grid, Typography, Button } from "@mui/material";
+import { UserAuth } from '../context/AuthContext';
 
 function App() {
-    let navigate = useNavigate();
-    const [user, setUser] = useState({
-        name: "name",
-        email: "email",
-    }); //do i have to do this?
-    const [loaded, setLoaded] = useState(false);
+    const { logOut, user } = UserAuth();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            getUser();
-            setLoaded(true);
-
-        };
-        fetchData();
-    }, []);
-
-    // log out function to log the user out of google and set the profile array to null
-    const logOut = () => {
-        localStorage.removeItem("@userToken");
-        localStorage.removeItem("@user");
-        localStorage.removeItem("@pfp");
-        localStorage.setItem("loggedIn", false);
-        navigate("/login"); //navigate to temp page that says you've logged out and times out?
+    const handleSignOut = async () => {
+      try {
+        await logOut();
+      } catch (error) {
+        console.log(error);
+      }
     };
 
-  async function getUser() {
-    let apiCall = `http://${process.env.REACT_APP_HOSTNAME}/info/${
-      JSON.parse(window.localStorage.getItem("@user")).uid
-    }`;
-
-    await fetch(apiCall, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error();
-        }
-        return response.json();
-      })
-      .then((response) => {
-        setUser(response);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
-
   function renderPage() {
-    if (loaded) {
       return (
         <Stack margin="100px" alignItems="center" justifyContent="center" spacing={4}>
-            <Avatar   sx={{ width: 200, height: 200 }} src={window.localStorage.getItem("@pfp")}>
+            <Avatar   sx={{ width: 200, height: 200 }} src={user.pfp}>
               <img
-                src={window.localStorage.getItem("@pfp")}
+                src={user.pfp}
                 referrerPolicy="no-referrer"
               ></img>
             </Avatar>        
-            <Typography id="name">{user.name}</Typography>
-            <Typography id="email">{user.email}</Typography>
-            <Typography id="apartment">{user.apartment}</Typography>
-            <Button variant='contained' onClick={logOut}>Log Out</Button>
+            <Typography id="name">{user.user.name}</Typography>
+            <Typography id="email">{user.user.email}</Typography>
+            <Button variant='contained' onClick={handleSignOut}>Log Out</Button>
 
       </Stack>
   
       );
-    } else {
-      return null;
-    }
+
   }
 
   return (
