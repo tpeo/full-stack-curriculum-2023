@@ -4,6 +4,7 @@ const app = express();
 const db = firebase.db;
 const cors = require('cors');
 const admin = require('firebase-admin');
+const auth = require('firebase/auth')
 
 require("dotenv").config();
 
@@ -14,24 +15,23 @@ app.use(cors({
 
 const authMiddleware = (req, res, next) => {
     const headerToken = req.headers.authorization;
-    next();
-    // if (!headerToken) {
-    //   return res.status(401).send({ message: "No token provided" });
-    // }
+    if (!headerToken) {
+      return res.status(401).send({ message: "No token provided" });
+    }
   
-    // if (headerToken && headerToken.split(" ")[0] !== "Bearer") {
-    //   res.status(401).send({ message: "Invalid token" });
-    // }
+    if (headerToken && headerToken.split(" ")[0] !== "Bearer") {
+      res.status(401).send({ message: "Invalid token" });
+    }
   
-    // const token = headerToken.split(" ")[1];
-    // admin.auth()
-    //   .verifyIdToken(token)
-    //   .then(() => {
-    //     // Send some important metadata to each call
-    //     req.username = jwtDecode(token).name;
-    //     next();
-    //   })
-    //   .catch(() => res.status(403).send({ msg: "Could not authorize" }));
+    const token = headerToken.split(" ")[1];
+    admin.auth()
+      .verifyIdToken(token)
+      .then(() => {
+        // Send some important metadata to each call
+        req.username = jwtDecode(token).name;
+        next();
+      })
+      .catch(() => res.status(403).send({ msg: "Could not authorize" }));
 }
 
 app.post('/user', async (req, res) => {
