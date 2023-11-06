@@ -31,6 +31,10 @@ export default function LoginPage() {
             user: user,
             pfp: user.pfp
           })
+
+          localStorage.setItem("@user", JSON.stringify(user));
+          localStorage.removeItem("@pfp", user.photoURL);
+          localStorage.setItem("@loggedIn", true);
           //6 - navigate user to the home page
           await verifyCredentials(navigate, true);
           navigate("/");

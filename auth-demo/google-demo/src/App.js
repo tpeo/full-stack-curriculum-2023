@@ -9,7 +9,7 @@ import { UserAuth } from './context/AuthContext';
 const ProtectedFormRoute = ({isLoggedIn, children}) => {
   const params = useParams();
   const name = params.apartment;
-  if (isLoggedIn) {
+  if (isLoggedIn == "true") { // use localstorage because it persists
     console.log(params)
     return children;
   } else {
@@ -21,11 +21,10 @@ const ProtectedFormRoute = ({isLoggedIn, children}) => {
 
 function App() {
   const { user } = UserAuth();
-  console.log(user.loggedIn)
     return (
         <Routes>
           <Route path="/login" element={<LoginPage></LoginPage>}></Route>
-          <Route path="/" element={<ProtectedFormRoute isLoggedIn={user.loggedIn}>
+          <Route path="/" element={<ProtectedFormRoute isLoggedIn={ window.localStorage.getItem("@loggedIn")}>
               <HomePage></HomePage>
             </ProtectedFormRoute>}></Route>
       </Routes>

@@ -19,6 +19,9 @@ export const AuthContextProvider = ({ children }) => {
 
   const logOut = () => {
       signOut(auth)
+      localStorage.removeItem("@user");
+      localStorage.removeItem("@pfp");
+      localStorage.setItem("@loggedIn", false);
       navigate("/login"); //navigate to temp page that says you've logged out and times out?
 
   }
