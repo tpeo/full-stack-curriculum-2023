@@ -19,6 +19,12 @@ export const AuthContextProvider = ({ children }) => {
 
   const logOut = () => {
       signOut(auth)
+      setUser({ // clear user
+        userToken: "",
+        loggedIn: false,
+        user: {},
+        pfp: ""
+      })
       localStorage.removeItem("@user");
       localStorage.removeItem("@pfp");
       localStorage.setItem("@loggedIn", false);
