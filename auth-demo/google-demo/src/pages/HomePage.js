@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Stack } from "@mui/material";
-import { Avatar, Grid, Typography, Button } from "@mui/material";
+import React, { useState } from "react";
+import { Avatar, Grid, Typography, Button, Stack } from "@mui/material";
 import { UserAuth } from '../context/AuthContext';
 
 function App() {
-    const { logOut, user } = UserAuth();
+    const { logOut } = UserAuth();
+    const user = JSON.parse(window.localStorage.getItem("@user"))
 
     const handleSignOut = async () => {
       try {
@@ -23,8 +23,8 @@ function App() {
                 referrerPolicy="no-referrer"
               ></img>
             </Avatar>        
-            <Typography id="name">{user.user.name}</Typography>
-            <Typography id="email">{user.user.email}</Typography>
+            <Typography id="name">{user.name}</Typography>
+            <Typography id="email">{user.email}</Typography>
             <Button variant='contained' onClick={handleSignOut}>Log Out</Button>
 
       </Stack>

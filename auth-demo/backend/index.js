@@ -4,8 +4,6 @@ const app = express();
 const db = firebase.db;
 const cors = require('cors');
 const admin = require('firebase-admin');
-const auth = require('firebase/auth')
-
 require("dotenv").config();
 
 app.use(express.json());
@@ -28,7 +26,7 @@ const authMiddleware = (req, res, next) => {
       .verifyIdToken(token)
       .then(() => {
         // Send some important metadata to each call
-        req.username = jwtDecode(token).name;
+        // req.username = jwtDecode(token).name;
         next();
       })
       .catch(() => res.status(403).send({ msg: "Could not authorize" }));
@@ -53,7 +51,7 @@ app.post('/user', async (req, res) => {
       }
   
     } catch (error) {
-      return res.status(400).send(`User should contain firstName, lastName, email`)
+      return res.status(400).send(`User should contain name and email`)
     }
   });
 
@@ -65,11 +63,7 @@ app.get("/info/:user_id", authMiddleware, async(req, res) => {
 
     res.status(200).json(query.data());
 })
-  
-//check if user is valid
-app.get("/auth", authMiddleware, (req, res) => {
-  return res.json({ msg: "Success" });
-});
+
 
 app.listen(process.env["PORT"], () =>
   console.log("App listening on port " + process.env["PORT"])

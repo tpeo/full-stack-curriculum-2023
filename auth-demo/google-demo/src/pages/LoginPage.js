@@ -1,5 +1,5 @@
 import { Avatar, Button, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, firebase } from "../firebase";
 import { UserAuth } from '../context/AuthContext';
@@ -16,7 +16,7 @@ export default function LoginPage() {
       async (result) => {
         //3 - pick the result and store the token
         const token = await auth?.currentUser?.getIdToken(true);
-        const user = {
+        const userLogin = {
           uid: auth.currentUser.uid,
           name: auth.currentUser.displayName,
           email: auth.currentUser.email,
@@ -28,15 +28,20 @@ export default function LoginPage() {
           setUser({
             userToken: token,
             loggedIn: true,
-            user: user,
-            pfp: user.pfp
+            user: userLogin,
+            pfp: userLogin.pfp
           })
 
-          localStorage.setItem("@user", JSON.stringify(user));
-          localStorage.removeItem("@pfp", user.photoURL);
+          localStorage.setItem("@user", JSON.stringify(userLogin));
+          localStorage.removeItem("@pfp", userLogin.photoURL);
           localStorage.setItem("@loggedIn", true);
           //6 - navigate user to the home page
-          await verifyCredentials(navigate, true);
+          await verifyCredentials(navigate, {
+            userToken: token,
+            loggedIn: true,
+            user: userLogin,
+            pfp: userLogin.pfp
+          }, true);
           navigate("/");
 
         }

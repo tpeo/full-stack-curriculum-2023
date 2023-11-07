@@ -55,18 +55,18 @@ export const AuthContextProvider = ({ children }) => {
       });
   }
 
-  const verifyCredentials = async (navigate) => {
-    // console.log(user)
-    if(user.userToken){
+  const verifyCredentials = async (navigate, persona) => {
+    console.log(persona)
+    if(persona.userToken){ 
         console.log("in verify")
 
-        const decode = jwtDecode(user.userToken);
+        const decode = jwtDecode(persona.userToken);
 
         const res = await fetch(`http://${process.env.REACT_APP_HOSTNAME}/user`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                authorization: "Bearer " + user.userToken,
+                authorization: "Bearer " + persona.userToken,
             },
             body: JSON.stringify({ user: decode }),
         });
