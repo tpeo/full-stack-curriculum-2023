@@ -8,7 +8,6 @@ import { UserAuth } from './context/AuthContext';
 
 const ProtectedFormRoute = ({isLoggedIn, children}) => {
   const params = useParams();
-  const name = params.apartment;
   if (isLoggedIn == "true") { // use localstorage because it persists
     console.log(params)
     return children;
