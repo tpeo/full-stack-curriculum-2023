@@ -51,6 +51,10 @@ const auth = getAuth(app);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setCurrentUser(userCredential.user);
+        // correct and formal way of getting access token
+        userCredential.user.getIdToken().then((accessToken) => {
+            console.log(accessToken)
+        })
         navigate("/");
       })
       .catch((error) => {
@@ -63,6 +67,8 @@ const auth = getAuth(app);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setCurrentUser(userCredential.user);
+        // this method of retrieving access token also works
+        console.log(userCredential.user.accessToken)
         navigate("/");
       })
       .catch((error) => {
