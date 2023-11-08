@@ -1,0 +1,31 @@
+/* Add your styling for SideContainer component here */
+/* For example: */
+#side-container {
+  height: 100%;
+  width: 34%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#search-input {
+  padding: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+#search-button {
+  padding: 10px;
+  background-color: #0075ff;
+  color: #ffffff;
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+.search-result:hover {
+  font-weight: bold;
+  cursor: pointer;
+}

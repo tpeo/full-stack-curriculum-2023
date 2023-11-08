@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping List Example</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>My Shopping List</h1>
+
+      <div>
+          <label for="item">Enter a new item:</label>
+          <input type="text" name="item" id="item">
+          <button onclick="createListItem()">Add item</button>
+      </div>
+
+      <ul id="Shopping-List"></ul>
+    </div>
+
+    <script>
+
+      //pull the most recent version from localStorage!
+      let shoppingList = JSON.parse(localStorage.getItem("shoppingList"))
+      //edge case... if it's null, set to empty array
+      if(!shoppingList){
+        shoppingList = [];
+      } 
+      //if not, add each item to HTML!
+      else {
+        shoppingList.forEach(item => {
+          addItem(item)
+        })
+      }
+
+      //handles overhead of adding items to list
+      function createListItem() {
+        const input = document.querySelector("#item")
+        console.log(input.value)
+
+        addItem(input.value)
+
+        input.value = "";
+        input.focus();
+      }
+
+
+      //conveniently done for you!
+      //manipulates HTML directly - grabs the list and pushes a new list item to it
+      function addItem(text) {
+        //grab the list
+        const list = document.querySelector("ul");
+
+        //create new elements
+        const li = document.createElement("li");
+        const span = document.createElement("span");
+        const deleteButton = document.createElement("button");
+        const saveButton = document.createElement("button");
+        deleteButton.innerText = "Delete";
+        saveButton.innerText = "Save";
+        span.innerText = text;
+
+        list.appendChild(li);
+        li.appendChild(span);
+        li.appendChild(deleteButton);
+        li.appendChild(saveButton);
+        
+        //delete button functionality
+        deleteButton.addEventListener("click", ()=> {
+            list.removeChild(li)
+            shoppingList = shoppingList.filter((item => item != span.innerText));
+            localStorage.setItem("shoppingList", JSON.stringify(shoppingList))
+        })
+
+        //save button function
+        saveButton.addEventListener("click", ()=>{
+          console.log("Saved!")
+
+          //this also works!
+          //const itemExists = shoppingList.filter((item) => item === text).length > 0
+          const itemExists = shoppingList.some((item) => item === text)
+          if (!itemExists){
+
+            //update the list
+            shoppingList.push(text)
+            //set localStorage to updated list
+            localStorage.setItem("shoppingList", JSON.stringify(shoppingList))
+
+          } else {
+            console.log("Error "+text+" already exists!")
+          }
+          console.log(localStorage)
+        })
+      }
+
+    </script>
+  </body>
+</html>
