@@ -4,9 +4,9 @@ This week we're transitioning from the pure engineering skills required to build
 
 # Materials
 
-Day 14: Product Collab (slides will be posted soon!)
+Day 14: [Product Collab](https://docs.google.com/presentation/d/1CI15VrM_fdFzB3StNf0WXqqUKevZT_DyR_q1CCKc6zA/edit?usp=sharing)
 
-Day 15: Design Collab (slides will be posted soon!)
+Day 15: Design Collab (Postponed to next semester)
 
 # Homework
 
